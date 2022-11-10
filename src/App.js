@@ -1,26 +1,36 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import { photos } from "./photos";
-import { getAllPhotos } from './services/PhotoService';
+import { fetchPhotos } from './services/FlickrService';
 
 function App() {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
-  const [statePhotos, setStatePhotos] = useState([]);
+  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    const response = getAllPhotos();
-    response.then(response => {
-      if (response.ok) {
-        response.json().then(data => {
-          console.log(data);
+    const abortController = new AbortController();
+    loadPhotos();
+    return () => abortController.abort();
+  },[]);
+
+  const loadPhotos = () => {
+    fetchPhotos()
+    .then(response => response.json())
+    .then(data => {
+          const aspectRatio = (height, width) => {
+            if (height > width) {
+                return { width: 1, height: height / width }
+            } else {
+                return { height: 1, width: width / height }
+            }
+          }
           let photos = data.photoset.photo.map(item => {
-            let aspectRatio = parseFloat(item.width_o / item.height_o);
+            let aspect = aspectRatio(item.height_m, item.width_m);
             return {
               src: item.url_l,
-              width: parseInt(item.width_o),
-              height: parseInt(item.height_o),
+              width: aspect.width,
+              height: aspect.height,
               title: item.title,
               alt: item.title,
               key: item.id,
@@ -33,12 +43,9 @@ function App() {
               sizes: '(min-width: 480px) 50vw, (min-width: 1024px) 33.3vw, 100vw',
             };
           });
-          setStatePhotos(photos);
-        })
-      }
-    })
-    console.log('statePhotos: ' + JSON.stringify(statePhotos));
-  },[]);
+          setPhotos(photos);
+        });
+  }
 
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index);
@@ -52,13 +59,13 @@ function App() {
 
   return (
     <div>
-      <Gallery photos={statePhotos} onClick={openLightbox} />
+      <Gallery photos={photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (
           <Modal onClose={closeLightbox}>
             <Carousel
               currentIndex={currentImage}
-              views={statePhotos.map(x => ({
+              views={photos.map(x => ({
                 ...x,
                 srcset: x.srcSet,
                 caption: x.title

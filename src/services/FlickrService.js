@@ -1,4 +1,4 @@
-export async function getAllPhotos() {
+export async function fetchPhotos() {
     const urlParams = {
         api_key: '79751713d5da47647b8bc90a66de3a85',
         photoset_id: '72177720303368765',
@@ -13,7 +13,6 @@ export async function getAllPhotos() {
       url = Object.keys(urlParams).reduce((acc, item) => {
         return acc + '&' + item + '=' + urlParams[item];
       }, url);
-      console.log('url: ' + url);
 
     try {
         const response = await fetch(url, {
