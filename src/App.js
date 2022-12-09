@@ -51,7 +51,7 @@ function App() {
             sizes: '(min-width: 480px) 50vw, (min-width: 1024px) 33.3vw, 100vw',
           };
         });
-        
+
         setFlickrPhotos(photos);
         const xmasCards = getXmasCards();
         setXmasCards(xmasCards);
@@ -65,34 +65,23 @@ function App() {
         <iframe width="560" height="315" src="https://www.youtube.com/embed/E2vKgKif88o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div>
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography>2022 Gallery</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <PhotoViewer photos={flickrPhotos}></PhotoViewer>
-          </AccordionDetails>
-        </Accordion>
+        <PhotoViewer photos={flickrPhotos}></PhotoViewer>
         {xmasCards.map((card) => {
           return (
             <>
-            <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>{card.title}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <PhotoViewer photos={card.cards}></PhotoViewer>
-            </AccordionDetails>
-          </Accordion>
-          </>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography>{card.title}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <PhotoViewer photos={card.cards}></PhotoViewer>
+                </AccordionDetails>
+              </Accordion>
+            </>
           );
         })}
       </div>
