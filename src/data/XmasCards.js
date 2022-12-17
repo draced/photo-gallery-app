@@ -5,10 +5,31 @@ export function getXmasCards() {
         title: '2021',
         cards: [
             {
+                src: './static/2021_flip1.jpg',
+                width: 6.85,
+                height: 5.14,
+                title: 'Christmas 2021',
+                srcSet: ['./static/2021_flip1.jpg']
+            },
+            {
+                src: './static/2021_flip2.jpg',
+                width: 6.85,
+                height: 5.14,
+                title: 'Christmas 2021',
+                srcSet: ['./static/2021_flip2.jpg']
+            },
+            {
+                src: './static/2021_flip3.jpg',
+                width: 6.85,
+                height: 5.14,
+                title: 'Christmas 2021',
+                srcSet: ['./static/2021_flip3.jpg']
+            },
+            {
                 src: './static/GroupXmas2021.png',
                 width: 12.36,
                 height: 5.7,
-                title: 'Christmas 2021',
+                title: 'Christmas 2021 Group Photo',
                 srcSet: ['./static/GroupXmas2021.png']
             }
         ]
@@ -113,15 +134,29 @@ export function getXmasCards() {
     };
     cards.push(xmas2014);
 
-    const xmas2012 = {
-        title: '2012',
+    const xmas2013 = {
+        title: '2013',
         cards: [
             {
                 src: './static/Xmas2012.jpg',
                 width: 4,
                 height: 3,
-                title: 'Christmas 2012',
+                title: 'Christmas 2013',
                 srcSet: ['./static/Xmas2012.jpg']
+            }
+        ]
+    };
+    cards.push(xmas2013);
+
+    const xmas2012 = {
+        title: '2012',
+        cards: [
+            {
+                src: './static/Xmas2012_.jpg',
+                width: 4,
+                height: 3,
+                title: 'Christmas 2012',
+                srcSet: ['./static/Xmas2012_.jpg']
             }
         ]
     };
@@ -278,11 +313,11 @@ export function getXmasCards() {
         title: '2002',
         cards: [
             {
-                src: './static/XmasNaked.JPG',
+                src: './static/2002_Card.jpg',
                 width: 4,
                 height: 3,
                 title: 'Christmas 2002',
-                srcSet: ['./static/XmasNaked.JPG']
+                srcSet: ['./static/2002_Card.jpg']
             }
         ]
     };
